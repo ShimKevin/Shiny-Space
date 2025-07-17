@@ -282,6 +282,7 @@ const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Admin URL: http://localhost:${PORT}/admin`);
+  console.log(`Admin URL (production): https://shiny-space.onrender.com/admin`); 
   console.log(`Upload directory: ${path.resolve('public/static/uploads/images')}`);
   console.log(`Image endpoints:`);
   console.log(`  - Hero: http://localhost:${PORT}/images/hero`);
