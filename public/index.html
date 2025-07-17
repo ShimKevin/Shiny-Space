@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shiny Space Cleaners | Professional Cleaning Services</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="/static/js/adminchat.js" defer></script>
+    <style>
+        /* Honeypot field styling - invisible to humans */
+        .form-honeypot {
+            position: absolute;
+            left: -9999px;
+        }
+        
+        /* Form status message styling */
+        .form-status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+        
+        .form-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .form-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Updated Header -->
+    <header>
+        <div class="container header-container">
+            <div class="header-top">
+                <a href="#" class="logo">
+                    <div class="logo-icon"></div>
+                    <div class="logo-text">SHINY<span>SPACE</span></div>
+                </a>
+                
+                <div class="mobile-contact">
+                    <a href="tel:0794785228">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                    <a href="mailto:shinyspace41@gmail.com">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+                
+                <div class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#policies">Policies</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                
+                <div class="desktop-contact">
+                    <div class="contact-item">
+                        <a href="tel:0794785228">
+                            <i class="fas fa-phone"></i>
+                            <span>0794785228</span>
+                        </a>
+                    </div>
+                    <div class="contact-item">
+                        <a href="mailto:shinyspace41@gmail.com">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email Us</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Updated Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="slogan animate-pop">We don't cut corners - we clean them</div>
+                <h1 class="animate-slide-up">Professional Cleaning Services<br><span>For Every Space</span></h1>
+                <p class="animate-fade-in">At Shiny Space Cleaners, we transform your environment into a spotless, refreshing, and hygienic space you'll love.</p>
+                <div class="hero-btns">
+                    <a href="#services" class="btn animate-pop">Our Services</a>
+                    <a href="#contact" class="btn btn-secondary animate-pop">Get a Quote</a>
+                </div>
+            </div>
+        </div>
+        <!-- Hero Background Image -->
+        <div class="hero-background">
+            <img src="/static/uploads/images/hero_123.jpg" alt="Professional Cleaning Service">
+        </div>
+    </section>
+
+    <!-- Updated About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Us</h2>
+                <p>Learn more about our passion for cleanliness and our commitment to excellence</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Transforming Spaces Since 2020</h2>
+                    <p>At Shiny Space Cleaners, we don't just clean — we transform your environment into a spotless, refreshing, and hygienic space you'll love. Founded with a passion for cleanliness and an eye for detail, we specialize in residential, commercial, and post-construction cleaning services.</p>
+                    <p>Our trained and trustworthy team uses eco-friendly products, modern equipment, and a personalized approach to ensure every corner shines. Whether it's your home, office, or special project, we deliver reliable, top-quality cleaning tailored to your needs and schedule.</p>
+                    
+                    <div class="mission-vision">
+                        <div class="mission">
+                            <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                            <p>To make every space healthier, brighter, and cleaner — one spotless room at a time.</p>
+                        </div>
+                        <div class="vision">
+                            <h3><i class="fas fa-eye"></i> Our Vision</h3>
+                            <p>To be the leading cleaning service known for integrity, professionalism, and outstanding results.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-images">
+                    <div class="about-image-container">
+                        <img 
+                            src="/static/uploads/images/about_123.jpeg" 
+                            alt="About us"
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-us">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Us</h2>
+                <p>Discover the benefits of choosing Shiny Space Cleaners for all your cleaning needs</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>Affordable Plans</h3>
+                    <p>We offer competitive pricing with flexible cleaning plans to suit any budget.</p>
+                </div>
+                
+                <div class="feature">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>Trained & Vetted Staff</h3>
+                    <p>Our professional team undergoes thorough training and background checks.</p>
+                </div>
+                
+                <div class="feature">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Eco-Friendly Solutions</h3>
+                    <p>We prioritize your health and the environment with non-toxic cleaning products.</p>
+                </div>
+                
+                <div class="feature">
+                    <i class="fas fa-thumbs-up"></i>
+                    <h3>100% Satisfaction</h3>
+                    <p>We stand behind our work with a customer satisfaction guarantee.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>Comprehensive cleaning solutions for residential and commercial spaces</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img 
+                            src="/static/uploads/images/office_123.webp" 
+                            alt="Office cleaning"
+                        >
+                    </div>
+                    <div class="service-content">
+                        <h3>Executive Office Cleaning</h3>
+                        <p>Professional cleaning services for offices including tea making, dusting, vacuuming, and sanitizing workspaces to maintain a productive environment.</p>
+                        <a href="#contact" class="btn btn-accent">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-img">
+                        <img 
+                            src="/static/uploads/images/construction_123.webp" 
+                            alt="Construction cleaning"
+                        >
+                    </div>
+                    <div class="service-content">
+                        <h3>Post-Construction Cleaning</h3>
+                        <p>Thorough cleanup after construction or renovation projects, removing debris, dust, and construction residues to make your space move-in ready.</p>
+                        <a href="#contact" class="btn btn-accent">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-img">
+                        <img 
+                            src="/static/uploads/images/residential_123.webp" 
+                            alt="Residential cleaning"
+                        >
+                    </div>
+                    <div class="service-content">
+                        <h3>Commercial & Residential Cleaning</h3>
+                        <p>Comprehensive cleaning solutions for both commercial establishments and residential homes, tailored to your specific requirements.</p>
+                        <a href="#contact" class="btn btn-accent">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Policies Section -->
+    <section class="policies" id="policies">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Policies</h2>
+                <p>Transparent guidelines for quality service delivery</p>
+            </div>
+            
+            <div class="policies-container">
+                <div class="policy-card">
+                    <h3><i class="fas fa-calendar-check"></i> Appointment & Scheduling</h3>
+                    <ul class="policy-list">
+                        <li><i class="fas fa-check-circle"></i> Appointments must be scheduled at least 24 hours in advance</li>
+                        <li><i class="fas fa-check-circle"></i> Flexible scheduling: daily, weekly, biweekly, or monthly</li>
+                        <li><i class="fas fa-check-circle"></i> Confirmation sent 12–24 hours before scheduled time</li>
+                        <li><i class="fas fa-check-circle"></i> Late rescheduling or cancellations (less than 12 hours) may incur a fee</li>
+                    </ul>
+                </div>
+                
+                <div class="policy-card">
+                    <h3><i class="fas fa-spray-can"></i> Supplies & Equipment</h3>
+                    <ul class="policy-list">
+                        <li><i class="fas fa-check-circle"></i> We provide all standard cleaning supplies and equipment</li>
+                        <li><i class="fas fa-check-circle"></i> Clients may request use of their preferred cleaning products</li>
+                        <li><i class="fas fa-check-circle"></i> Eco-friendly and non-toxic products used by default</li>
+                    </ul>
+                </div>
+                
+                <div class="policy-card">
+                    <h3><i class="fas fa-shield-alt"></i> Health & Safety</h3>
+                    <ul class="policy-list">
+                        <li><i class="fas fa-check-circle"></i> Strict hygiene and safety protocols followed at all times</li>
+                        <li><i class="fas fa-check-circle"></i> Cleaners wear protective gear as needed</li>
+                        <li><i class="fas fa-check-circle"></i> Unwell team members will not report to duty</li>
+                    </ul>
+                </div>
+                
+                <div class="policy-card">
+                    <h3><i class="fas fa-lock"></i> Privacy & Security</h3>
+                    <ul class="policy-list">
+                        <li><i class="fas fa-check-circle"></i> Client information and property treated with confidentiality</li>
+                        <li><i class="fas fa-check-circle"></i> Staff professionally trained and thoroughly vetted</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Updated Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Get in touch with us for a sparkling clean space</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Our Location</h4>
+                                <p>NAIROBI/MACHAKOS</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Phone Number</h4>
+                                <a href="tel:0794785228">0794785228</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email Address</h4>
+                                <a href="mailto:shinyspace41@gmail.com">shinyspace41@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="opening-hours">
+                        <h4>Opening Hours</h4>
+                        <ul class="hours-list">
+                            <li><span>Monday - Friday</span> <span>7:00 AM - 5:00 PM</span></li>
+                            <li><span>Saturday</span> <span>8:00 AM - 1:00 PM</span></li>
+                            <li><span>Sunday</span> <span>Closed</span></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="contact-form-modern">
+                    <div class="form-header">
+                        <h3>Send us a message</h3>
+                        <p>We'll respond as quickly as possible</p>
+                    </div>
+                    
+                    <!-- Updated Form with FormSubmit and Honeypot -->
+                    <form id="contactForm" action="https://formsubmit.co/kevinshimanjala@gmail.com" method="POST" class="modern-form">
+                        <!-- Honeypot field to prevent spam -->
+                        <input type="text" name="_honey" class="form-honeypot">
+                        
+                        <!-- FormSubmit configuration -->
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_subject" value="New Contact from Shiny Space Website">
+                        <input type="hidden" name="_next" value="#contact">
+                        
+                        <!-- Form status messages -->
+                        <div id="formStatus" class="form-status"></div>
+                        
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="fas fa-user"></i>
+                                <input type="text" name="name" placeholder="Your Name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" name="email" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="fas fa-phone"></i>
+                                <input type="tel" name="phone" placeholder="Your Phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="fas fa-comment"></i>
+                                <textarea name="message" placeholder="Your Message" required></textarea>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-secondary">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Contact Background Image -->
+        <div class="contact-background">
+            <img src="/static/uploads/images/contact_123.jpeg" alt="Contact Background">
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Shiny Space Cleaners</h3>
+                    <p>Transforming your environment into spotless, refreshing, and hygienic spaces you'll love with our professional cleaning services.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/shinyspace" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@shinyspace" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.instagram.com/shinyspace" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/shinyspace" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="#policies"><i class="fas fa-chevron-right"></i> Policies</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Executive Office Cleaning</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Post-Construction Cleaning</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Commercial Cleaning</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Residential Cleaning</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> NAIROBI/MACHAKOS</a></li>
+                        <li><a href="tel:0794785228"><i class="fas fa-phone"></i> 0794785228</a></li>
+                        <li><a href="mailto:shinyspace41@gmail.com"><i class="fas fa-envelope"></i> shinyspace41@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Shiny Space Cleaners. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <a href="https://wa.me/254794785228" class="float-btn whatsapp-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="#" class="float-btn chat-btn" id="openChat">
+            <i class="fas fa-comments"></i>
+        </a>
+    </div>
+
+    <!-- Modern Chat Modal -->
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-modal-header">
+            <h3><i class="fas fa-headset"></i> Live Chat Support</h3>
+            <button class="close-chat" id="closeChat">&times;</button>
+            <div class="chat-status">
+                <div class="status-indicator"></div>
+                <span>Online now</span>
+            </div>
+        </div>
+        <div class="chat-modal-body" id="chatMessages">
+            <div class="message system">
+                <div class="message-content">Welcome to Shiny Space Cleaners! How can we assist you today?</div>
+            </div>
+            <div class="message system">
+                <div class="message-content">Our team is online and ready to help with any cleaning inquiries.</div>
+            </div>
+        </div>
+        <div class="chat-modal-footer">
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button id="sendMessage">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const nav = document.querySelector('nav');
+        
+        mobileToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            mobileToggle.querySelector('i').classList.toggle('fa-bars');
+            mobileToggle.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Close mobile menu when clicking a nav link
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                mobileToggle.querySelector('i').classList.add('fa-bars');
+                mobileToggle.querySelector('i').classList.remove('fa-times');
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+            }
+        });
+        
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.feature, .service-card, .policy-card, .mission, .vision, .section-title');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+        
+        // Chat functionality
+        const sendMessageBtn = document.getElementById('sendMessage');
+        const messageInput = document.getElementById('messageInput');
+        const chatMessages = document.getElementById('chatMessages');
+        
+        function formatTime(date) {
+            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        sendMessageBtn.addEventListener('click', () => {
+            if(messageInput.value.trim() !== '') {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message', 'customer');
+                
+                const time = new Date();
+                messageElement.innerHTML = `
+                    <div class="message-content">${messageInput.value}</div>
+                    <div class="message-time">${formatTime(time)}</div>
+                `;
+                chatMessages.appendChild(messageElement);
+                messageInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Simulate admin response
+                setTimeout(() => {
+                    const adminMessage = document.createElement('div');
+                    adminMessage.classList.add('message', 'admin');
+                    
+                    const adminTime = new Date();
+                    adminMessage.innerHTML = `
+                        <div class="message-sender">Shiny Support</div>
+                        <div class="message-content">Thank you for your message! We'll get back to you shortly with assistance.</div>
+                        <div class="message-time">${formatTime(adminTime)}</div>
+                    `;
+                    chatMessages.appendChild(adminMessage);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 2000);
+            }
+        });
+        
+        // Press Enter to send message
+        messageInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') {
+                sendMessageBtn.click();
+            }
+        });
+
+        // Chat Modal Toggle
+        const chatModal = document.getElementById('chatModal');
+        const openChatBtn = document.getElementById('openChat');
+        const closeChatBtn = document.getElementById('closeChat');
+        
+        openChatBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            chatModal.classList.add('active');
+        });
+        
+        closeChatBtn.addEventListener('click', () => {
+            chatModal.classList.remove('active');
+        });
+        
+        // Close chat modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === chatModal) {
+                chatModal.classList.remove('active');
+            }
+        });
+        
+        // Form submission with FormSubmit
+        const contactForm = document.getElementById('contactForm');
+        const formStatus = document.getElementById('formStatus');
+        
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const formData = new FormData(contactForm);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const phone = formData.get('phone');
+            const message = formData.get('message');
+            
+            // Show loading state
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            try {
+                // Submit to FormSubmit
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Show success message
+                    formStatus.textContent = 'Thank you for your message! We will contact you soon.';
+                    formStatus.className = 'form-status form-success';
+                    formStatus.style.display = 'block';
+                    
+                    // Reset form
+                    contactForm.reset();
+                    
+                    // Hide status after 5 seconds
+                    setTimeout(() => {
+                        formStatus.style.display = 'none';
+                    }, 5000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                console.error('Form submission error:', error);
+                formStatus.textContent = 'Failed to send message. Please try again or contact us directly.';
+                formStatus.className = 'form-status form-error';
+                formStatus.style.display = 'block';
+            } finally {
+                // Reset button state
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
