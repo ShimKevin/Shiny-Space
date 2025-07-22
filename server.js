@@ -640,25 +640,33 @@ app.use((req, res) => {
   res.status(404).send('Page not found');
 });
 
-// MongoDB connection
+// MongoDB connection - Updated for both production and local development
 const connectToDatabase = async () => {
   try {
-    await mongoose.connect(MONGODB_URI, {
+    const connectionOptions = {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
-      auth: {
-        username: ADMIN_USERNAME,
-        password: ADMIN_PASSWORD
-      },
-      authSource: 'admin'
-    });
-    console.log('MongoDB connected successfully');
+      useUnifiedTopology: true
+    };
+
+    // For production: use the MONGODB_URI directly
+    // For development: construct the URI with encoded password
+    let dbUri = MONGODB_URI;
+    
+    if (process.env.NODE_ENV !== 'production') {
+      // Properly encode password with special characters
+      const encodedPassword = encodeURIComponent('Mutuafred123');
+      dbUri = `mongodb+srv://Fredmutua:${encodedPassword}@cluster0.h0zk90.mongodb.net/shinyspace?retryWrites=true&w=majority`;
+    }
+
+    await mongoose.connect(dbUri, connectionOptions);
+    console.log('MongoDB connected successfully to shinyspace database');
     
     // Create admin user in the admin database
     await createInitialAdmin();
     startServer();
   } catch (err) {
     console.error('MongoDB connection error:', err);
+    console.log('Please check your MongoDB credentials and network access');
     process.exit(1);
   }
 };
