@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Shiny Space Cleaners</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
         :root {
             --primary: #2e86de;
@@ -402,163 +403,6 @@
             transform: scale(1.1);
         }
         
-        /* Chat Section */
-        .chat-container {
-            background: var(--light);
-            border-radius: 15px;
-            overflow: hidden;
-            height: 500px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .chat-header {
-            background: var(--vibrant-blue);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 1.3rem;
-        }
-        
-        .chat-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .message {
-            margin-bottom: 20px;
-            max-width: 80%;
-            padding: 15px;
-            border-radius: 15px;
-        }
-        
-        .message.customer {
-            align-self: flex-start;
-            background: var(--white);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .message.admin {
-            align-self: flex-end;
-            background: var(--vibrant-blue);
-            color: white;
-            border-radius: 15px 15px 0 15px;
-        }
-        
-        .message-sender {
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
-        
-        .chat-input {
-            display: flex;
-            padding: 15px;
-            background: var(--white);
-            border-top: 1px solid var(--light);
-        }
-        
-        .chat-input input {
-            flex: 1;
-            padding: 15px;
-            border: 1px solid var(--light);
-            border-radius: 50px;
-            margin-right: 10px;
-        }
-        
-        .chat-input button {
-            background: var(--vibrant-blue);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 0 25px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .chat-input button:hover {
-            background: var(--vibrant-purple);
-        }
-
-        /* Chat items */
-        .chat-item {
-            background: white;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .chat-item .chat-header {
-            background: var(--vibrant-blue);
-            color: white;
-            padding: 10px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chat-header .close-chat {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        .chat-history {
-            padding: 15px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .chat-input-admin {
-            display: flex;
-            padding: 10px;
-            background: #f5f6fa;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .chat-input-admin input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #e0e0e0;
-            border-radius: 20px;
-            margin-right: 10px;
-        }
-
-        .chat-input-admin button {
-            background: var(--vibrant-blue);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .message-time {
-            font-size: 0.7rem;
-            color: #888;
-            margin-top: 5px;
-            text-align: right;
-        }
-
-        .message.system {
-            background: #f0f0f0;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
         /* Upload progress styles */
         .upload-progress {
             height: 6px;
@@ -616,6 +460,167 @@
             color: white;
         }
         
+        /* CHAT STYLES */
+        .conversation-list {
+            width: 30%;
+            border-right: 1px solid var(--light);
+            padding-right: 15px;
+            height: 500px;
+            overflow-y: auto;
+        }
+        
+        .chat-container {
+            width: 70%;
+            padding-left: 20px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .conversation-item {
+            padding: 12px;
+            border-bottom: 1px solid var(--light);
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .conversation-item:hover, .conversation-item.active {
+            background: rgba(46, 134, 222, 0.05);
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: var(--light);
+            border-radius: 15px;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 12px;
+            max-width: 80%;
+        }
+        
+        .customer {
+            background: var(--white);
+            align-self: flex-start;
+        }
+        
+        .admin {
+            background: var(--vibrant-blue);
+            color: white;
+            align-self: flex-end;
+        }
+        
+        .message-sender {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .message-time {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 5px;
+            text-align: right;
+        }
+        
+        .customer .message-time {
+            color: #777;
+        }
+        
+        .chat-input-admin {
+            display: flex;
+            margin-top: 15px;
+        }
+        
+        .chat-input-admin input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--light);
+            border-radius: 8px;
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+        
+        .chat-input-admin button {
+            padding: 12px 25px;
+            background: var(--vibrant-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .chat-input-admin button:hover {
+            background: var(--vibrant-purple);
+        }
+        
+        .no-conversation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #777;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        /* Contact Forms Table */
+        #contact-forms-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        #contact-forms-table th {
+            background-color: #f5f6fa;
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        #contact-forms-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        #contact-forms-table tr:hover {
+            background-color: rgba(46, 134, 222, 0.05);
+        }
+        
+        /* Navigation buttons */
+        .section-navigation {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-btn {
+            background: var(--vibrant-blue);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .nav-btn:hover {
+            background: var(--vibrant-purple);
+        }
+        
+        .back-to-dashboard {
+            background: var(--secondary);
+        }
+        
         /* Responsive Styles */
         @media (max-width: 992px) {
             .admin-sidebar {
@@ -643,6 +648,22 @@
             
             .admin-main {
                 margin-left: 80px;
+            }
+            
+            .conversation-list, .chat-container {
+                width: 100%;
+                padding: 0;
+            }
+            
+            .conversation-list {
+                border-right: none;
+                border-bottom: 1px solid var(--light);
+                height: 250px;
+                margin-bottom: 20px;
+            }
+            
+            .chat-container {
+                height: 400px;
             }
         }
         
@@ -713,11 +734,11 @@
             <h2>Admin Login</h2>
             <div>
                 <label>Username</label>
-                <input type="text" id="adminUsername" placeholder="Enter username">
+                <input type="text" id="adminUsername" placeholder="admin">
             </div>
             <div>
                 <label>Password</label>
-                <input type="password" id="adminPassword" placeholder="Enter password">
+                <input type="password" id="adminPassword" placeholder="admin123">
             </div>
             <button id="adminLoginBtn">Login</button>
         </div>
@@ -742,14 +763,15 @@
         </div>
         
         <ul class="admin-nav">
-            <li><a href="#" class="active"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-            <li><a href="#"><i class="fas fa-images"></i> <span>Gallery</span></a></li>
-            <li><a href="#"><i class="fas fa-home"></i> <span>Hero Images</span></a></li>
-            <li><a href="#"><i class="fas fa-building"></i> <span>About Images</span></a></li>
-            <li><a href="#"><i class="fas fa-broom"></i> <span>Services Images</span></a></li>
-            <li><a href="#"><i class="fas fa-address-book"></i> <span>Contact Images</span></a></li>
-            <li><a href="#"><i class="fas fa-comments"></i> <span>Customer Chat</span></a></li>
-            <li><a href="#"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+            <li><a href="#" class="active" data-section="dashboard"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+            <li><a href="#" data-section="gallery"><i class="fas fa-images"></i> <span>Gallery</span></a></li>
+            <li><a href="#" data-section="hero-images"><i class="fas fa-home"></i> <span>Hero Images</span></a></li>
+            <li><a href="#" data-section="about-images"><i class="fas fa-building"></i> <span>About Images</span></a></li>
+            <li><a href="#" data-section="services-images"><i class="fas fa-broom"></i> <span>Services Images</span></a></li>
+            <li><a href="#" data-section="contact-images"><i class="fas fa-address-book"></i> <span>Contact Images</span></a></li>
+            <li><a href="#" data-section="customer-chat"><i class="fas fa-comments"></i> <span>Customer Chat</span></a></li>
+            <li><a href="#" data-section="contact-forms"><i class="fas fa-envelope-open-text"></i> <span>Contact Forms</span></a></li>
+            <li><a href="#" data-section="settings"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
         </ul>
         
         <button class="admin-logout">
@@ -760,214 +782,260 @@
     
     <!-- Admin Main Content -->
     <div class="admin-main">
-        <div class="admin-header">
-            <h1>Admin Dashboard</h1>
-            <div class="admin-info">
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--light); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--vibrant-blue);">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div>
-                        <div style="font-weight: 600;">Admin User</div>
-                        <div style="font-size: 0.9rem; color: #666;">admin@shinyspace.com</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="admin-stats">
-            <div class="stat-card">
-                <div class="stat-icon stat-1">
-                    <i class="fas fa-image"></i>
-                </div>
-                <div class="stat-info">
-                    <h3 id="totalImages">0</h3>
-                    <p>Total Images</p>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon stat-2">
-                    <i class="fas fa-comments"></i>
-                </div>
-                <div class="stat-info">
-                    <h3 id="activeChatsCount">0</h3>
-                    <p>Active Chats</p>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon stat-3">
-                    <i class="fas fa-users"></i>
-                </div>
-                <div class="stat-info">
-                    <h3>128</h3>
-                    <p>Total Visitors</p>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon stat-4">
-                    <i class="fas fa-envelope"></i>
-                </div>
-                <div class="stat-info">
-                    <h3 id="newMessagesCount">0</h3>
-                    <p>New Messages</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Hero Image Management -->
-        <div class="admin-section">
-            <div class="section-header">
-                <h2>Hero Section Images</h2>
-            </div>
-            
-            <div class="image-upload">
-                <div class="upload-area" id="hero-upload-area">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Drag & drop images here or click to browse</p>
-                    <p>Recommended size: 1920x1080 pixels</p>
-                    <input type="file" class="file-input" id="hero-file-input" accept="image/*">
-                </div>
-                <div class="upload-progress" id="hero-progress">
-                    <div class="progress-bar" id="hero-progress-bar"></div>
-                </div>
-                <div class="upload-status" id="hero-status"></div>
-                <button class="upload-btn" id="hero-upload-btn">
-                    <i class="fas fa-upload"></i> Upload Hero Image
-                </button>
-            </div>
-            
-            <div class="gallery-grid" id="hero-gallery">
-                <!-- Demo images -->
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1581578021044-ac1e84c61b0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Hero image">
-                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Hero image">
-                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- About Images Management -->
-        <div class="admin-section">
-            <div class="section-header">
-                <h2>About Section Images</h2>
-            </div>
-            
-            <div class="image-upload">
-                <div class="upload-area" id="about-upload-area">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Drag & drop images here or click to browse</p>
-                    <p>Recommended size: 800x600 pixels</p>
-                    <input type="file" class="file-input" id="about-file-input" accept="image/*">
-                </div>
-                <div class="upload-progress" id="about-progress">
-                    <div class="progress-bar" id="about-progress-bar"></div>
-                </div>
-                <div class="upload-status" id="about-status"></div>
-                <button class="upload-btn" id="about-upload-btn">
-                    <i class="fas fa-upload"></i> Upload About Images
-                </button>
-            </div>
-            
-            <div class="gallery-grid" id="about-gallery">
-                <!-- Demo images -->
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1073&q=80" alt="About image">
-                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="About image">
-                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Services Images Management -->
-        <div class="admin-section">
-            <div class="section-header">
-                <h2>Services Section Images</h2>
-            </div>
-            
-            <div class="image-upload">
-                <div class="upload-area" id="services-upload-area">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Drag & drop images here or click to browse</p>
-                    <p>Recommended size: 800x600 pixels</p>
-                    <input type="file" class="file-input" id="services-file-input" accept="image/*">
-                </div>
-                <div class="upload-progress" id="services-progress">
-                    <div class="progress-bar" id="services-progress-bar"></div>
-                </div>
-                <div class="upload-status" id="services-status"></div>
-                <button class="upload-btn" id="services-upload-btn">
-                    <i class="fas fa-upload"></i> Upload Services Images
-                </button>
-            </div>
-            
-            <div class="gallery-grid" id="services-gallery">
-                <!-- Demo images -->
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Services image">
-                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1153&q=80" alt="Services image">
-                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Contact Image Management -->
-        <div class="admin-section">
-            <div class="section-header">
-                <h2>Contact Section Image</h2>
-            </div>
-            
-            <div class="image-upload">
-                <div class="upload-area" id="contact-upload-area">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Drag & drop images here or click to browse</p>
-                    <p>Recommended size: 1920x1080 pixels</p>
-                    <input type="file" class="file-input" id="contact-file-input" accept="image/*">
-                </div>
-                <div class="upload-progress" id="contact-progress">
-                    <div class="progress-bar" id="contact-progress-bar"></div>
-                </div>
-                <div class="upload-status" id="contact-status"></div>
-                <button class="upload-btn" id="contact-upload-btn">
-                    <i class="fas fa-upload"></i> Upload Contact Image
-                </button>
-            </div>
-            
-            <div class="gallery-grid" id="contact-gallery">
-                <!-- Demo image -->
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Contact image">
-                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Customer Chat -->
-        <div class="admin-section">
-            <div class="section-header">
-                <h2>Customer Chat</h2>
-            </div>
-            
-            <div class="chat-container">
-                <div class="chat-header">
-                    Active Conversations
-                </div>
-                <div class="chat-messages" id="adminChatMessages">
-                    <div class="message system">
-                        <div class="message-content">Waiting for incoming customer chats...</div>
+        <!-- Dashboard Section -->
+        <div id="dashboard-section" class="content-section">
+            <div class="admin-header">
+                <h1>Admin Dashboard</h1>
+                <div class="admin-info">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--light); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--vibrant-blue);">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight: 600;">Admin User</div>
+                            <div style="font-size: 0.9rem; color: #666;">admin@shinyspace.com</div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="stat-icon stat-1">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalImages">8</h3>
+                        <p>Total Images</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon stat-2">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="activeChatsCount">0</h3>
+                        <p>Active Chats</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon stat-3">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>128</h3>
+                        <p>Total Visitors</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon stat-4">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="newMessagesCount">0</h3>
+                        <p>New Messages</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hero Image Management -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2>Hero Section Images</h2>
+                </div>
+                
+                <div class="image-upload">
+                    <div class="upload-area" id="hero-upload-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop images here or click to browse</p>
+                        <p>Recommended size: 1920x1080 pixels</p>
+                        <input type="file" class="file-input" id="hero-file-input" accept="image/*">
+                    </div>
+                    <div class="upload-progress" id="hero-progress">
+                        <div class="progress-bar" id="hero-progress-bar"></div>
+                    </div>
+                    <div class="upload-status" id="hero-status"></div>
+                    <button class="upload-btn" id="hero-upload-btn">
+                        <i class="fas fa-upload"></i> Upload Hero Image
+                    </button>
+                </div>
+                
+                <div class="gallery-grid" id="hero-gallery">
+                    <!-- Demo images -->
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1581578021044-ac1e84c61b0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Hero image">
+                        <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Hero image">
+                        <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- About Images Management -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2>About Section Images</h2>
+                </div>
+                
+                <div class="image-upload">
+                    <div class="upload-area" id="about-upload-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop images here or click to browse</p>
+                        <p>Recommended size: 800x600 pixels</p>
+                        <input type="file" class="file-input" id="about-file-input" accept="image/*">
+                    </div>
+                    <div class="upload-progress" id="about-progress">
+                        <div class="progress-bar" id="about-progress-bar"></div>
+                    </div>
+                    <div class="upload-status" id="about-status"></div>
+                    <button class="upload-btn" id="about-upload-btn">
+                        <i class="fas fa-upload"></i> Upload About Images
+                    </button>
+                </div>
+                
+                <div class="gallery-grid" id="about-gallery">
+                    <!-- Demo images -->
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1073&q=80" alt="About image">
+                        <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="About image">
+                        <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Services Images Management -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2>Services Section Images</h2>
+                </div>
+                
+                <div class="image-upload">
+                    <div class="upload-area" id="services-upload-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop images here or click to browse</p>
+                        <p>Recommended size: 800x600 pixels</p>
+                        <input type="file" class="file-input" id="services-file-input" accept="image/*">
+                    </div>
+                    <div class="upload-progress" id="services-progress">
+                        <div class="progress-bar" id="services-progress-bar"></div>
+                    </div>
+                    <div class="upload-status" id="services-status"></div>
+                    <button class="upload-btn" id="services-upload-btn">
+                        <i class="fas fa-upload"></i> Upload Services Images
+                    </button>
+                </div>
+                
+                <div class="gallery-grid" id="services-gallery">
+                    <!-- Demo images -->
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Services image">
+                        <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1153&q=80" alt="Services image">
+                        <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Image Management -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2>Contact Section Image</h2>
+                </div>
+                
+                <div class="image-upload">
+                    <div class="upload-area" id="contact-upload-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop images here or click to browse</p>
+                        <p>Recommended size: 1920x1080 pixels</p>
+                        <input type="file" class="file-input" id="contact-file-input" accept="image/*">
+                    </div>
+                    <div class="upload-progress" id="contact-progress">
+                        <div class="progress-bar" id="contact-progress-bar"></div>
+                    </div>
+                    <div class="upload-status" id="contact-status"></div>
+                    <button class="upload-btn" id="contact-upload-btn">
+                        <i class="fas fa-upload"></i> Upload Contact Image
+                    </button>
+                </div>
+                
+                <div class="gallery-grid" id="contact-gallery">
+                    <!-- Demo image -->
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Contact image">
+                        <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Customer Chat -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2>Customer Chat</h2>
+                </div>
+                
+                <div style="display: flex; gap: 20px; height: 600px;">
+                    <div class="conversation-list" style="width: 30%;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h3>Active Chats</h3>
+                            <div id="activeChatsBadge" style="background: var(--vibrant-blue); color: white; padding: 3px 8px; border-radius: 20px;">0</div>
+                        </div>
+                        <div id="conversations" style="height: calc(100% - 40px); overflow-y: auto;">
+                            <div class="no-conversation">No active conversations</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-container" style="width: 70%; display: flex; flex-direction: column;">
+                        <h3>Conversation with <span id="client-id" style="font-weight: bold;">[Select a chat]</span></h3>
+                        <div id="chatMessages" class="chat-messages" style="flex: 1; overflow-y: auto;">
+                            <div class="no-conversation">Please select a conversation from the list</div>
+                        </div>
+                        <div class="chat-input-admin" style="margin-top: 15px;">
+                            <input type="text" id="adminReplyInput" placeholder="Type your message..." style="flex: 1; padding: 12px 15px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 1rem;">
+                            <button id="adminReplyBtn" style="padding: 12px 25px; background: var(--vibrant-blue); color: white; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; margin-left: 10px;">
+                                <i class="fas fa-paper-plane"></i> Send
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contact Forms Section -->
+        <div id="contact-forms-section" class="admin-section content-section" style="display: none;">
+            <div class="section-header">
+                <h2>Contact Form Submissions</h2>
+                <div class="section-navigation">
+                    <button class="nav-btn back-to-dashboard">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </button>
+                </div>
+            </div>
+            
+            <div style="overflow-x: auto;">
+                <table id="contact-forms-table" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background-color: #f5f6fa; text-align: left;">
+                            <th style="padding: 12px 15px; border-bottom: 1px solid #e0e0e0;">Name</th>
+                            <th style="padding: 12px 15px; border-bottom: 1px solid #e0e0e0;">Email</th>
+                            <th style="padding: 12px 15px; border-bottom: 1px solid #e0e0e0;">Phone</th>
+                            <th style="padding: 12px 15px; border-bottom: 1px solid #e0e0e0;">Message</th>
+                            <th style="padding: 12px 15px; border-bottom: 1px solid #e0e0e0;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contact-forms-body">
+                        <!-- Data will be populated here -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -979,14 +1047,21 @@
         const adminSidebar = document.querySelector('.admin-sidebar');
         const connectionStatus = document.getElementById('connectionStatus');
         let adminSocket = null;
-        let messageCount = 0;
         let reconnectAttempts = 0;
         const maxReconnectAttempts = 5;
         let reconnectTimer = null;
         
+        // Admin chat functionality
+        const activeChats = new Map(); // clientId -> array of messages
+        let currentClientId = null;
+        
         // Hide admin content by default
         adminContent.style.display = 'none';
         adminSidebar.style.display = 'none';
+        
+        // Pre-fill demo credentials
+        document.getElementById('adminUsername').value = 'admin';
+        document.getElementById('adminPassword').value = 'admin123';
         
         // Initialize connection status
         updateConnectionStatus(false);
@@ -995,7 +1070,7 @@
             const username = document.getElementById('adminUsername').value;
             const password = document.getElementById('adminPassword').value;
             
-            if (username === 'admin' && password === 'admin123') {
+            if (username && password) {
                 loginModal.style.display = 'none';
                 adminContent.style.display = 'block';
                 adminSidebar.style.display = 'block';
@@ -1003,7 +1078,7 @@
                 // Initialize WebSocket with proper protocol
                 initWebSocket();
             } else {
-                showNotification('Login Failed', 'Invalid credentials. Please try again.');
+                showNotification('Login Failed', 'Please enter both username and password.');
             }
         });
         
@@ -1028,8 +1103,8 @@
                 adminSocket.send(JSON.stringify({
                     type: 'identify',
                     role: 'admin',
-                    username: 'admin',
-                    password: 'admin123'
+                    username: document.getElementById('adminUsername').value,
+                    password: document.getElementById('adminPassword').value
                 }));
                 
                 // Initialize admin functionality
@@ -1065,26 +1140,64 @@
                     const data = JSON.parse(event.data);
                     
                     if (data.type === 'messageCount') {
-                        messageCount = data.count;
-                        document.getElementById('newMessagesCount').textContent = messageCount;
+                        document.getElementById('newMessagesCount').textContent = data.count;
                     }
                     
                     if (data.type === 'contact') {
                         // Update message count
-                        messageCount++;
-                        document.getElementById('newMessagesCount').textContent = messageCount;
+                        document.getElementById('newMessagesCount').textContent = data.count;
                         
                         // Create notification for contact form submission
-                        showNotification('New Contact Form', 
-                            `Name: ${data.name}<br>
-                             Email: ${data.email}<br>
-                             Phone: ${data.phone}<br>
-                             Message: ${data.message}`);
+                        const notification = document.createElement('div');
+                        notification.className = 'notification';
+                        notification.innerHTML = `
+                            <div class="notification-header">New Contact Form</div>
+                            <div class="notification-content">
+                                <strong>${data.name}</strong> (${data.email})<br>
+                                ${data.phone ? `Phone: ${data.phone}<br>` : ''}
+                                ${data.message}
+                            </div>
+                        `;
+                        
+                        // Make notification clickable
+                        notification.style.cursor = 'pointer';
+                        notification.addEventListener('click', () => {
+                            // Switch to contact forms section
+                            showSection('contact-forms-section');
+                            loadContactForms();
+                            
+                            // Remove notification
+                            notification.remove();
+                        });
+                        
+                        document.getElementById('notifications').appendChild(notification);
+                        
+                        // Auto-remove after 10 seconds
+                        setTimeout(() => {
+                            if (notification.parentNode) {
+                                notification.style.opacity = '0';
+                                setTimeout(() => notification.remove(), 300);
+                            }
+                        }, 10000);
                     }
                     
                     // Handle chat messages
                     if (data.type === 'chat') {
                         handleIncomingMessage(data);
+                    }
+                    
+                    // Handle authentication errors
+                    if (data.type === 'authError') {
+                        showNotification('Authentication Error', data.message);
+                        adminSocket.close();
+                        adminContent.style.display = 'none';
+                        adminSidebar.style.display = 'none';
+                        loginModal.style.display = 'flex';
+                    }
+                    
+                    // Handle conversation history
+                    if (data.type === 'history') {
+                        handleConversationHistory(data.clientId, data.messages);
                     }
                 } catch (error) {
                     console.error('Error parsing message:', error);
@@ -1115,15 +1228,6 @@
             updateConnectionStatus(false);
         });
         
-        // Initialize admin functionality after login
-        function initAdminFunctionality() {
-            // Initialize chat functionality
-            initAdminChat();
-            
-            // Initialize gallery functionality
-            initGallery();
-        }
-        
         // Show notification function
         function showNotification(title, content) {
             const notification = document.createElement('div');
@@ -1142,145 +1246,285 @@
             }, 10000);
         }
         
-        // Admin chat functionality
-        const activeChats = new Map();
-        
         function handleIncomingMessage(data) {
             const clientId = data.from;
             
+            // Create conversation if it doesn't exist
             if (!activeChats.has(clientId)) {
-                // New client - create chat entry
                 activeChats.set(clientId, []);
-                
-                // Add to active chats list
-                const chatList = document.getElementById('adminChatMessages');
-                
-                // Remove waiting message if it exists
-                const systemMessage = chatList.querySelector('.message.system');
-                if (systemMessage) systemMessage.remove();
-                
-                const chatItem = document.createElement('div');
-                chatItem.classList.add('chat-item');
-                chatItem.dataset.clientId = clientId;
-                chatItem.innerHTML = `
-                    <div class="chat-header">
-                        <span class="client-id">Client: ${clientId}</span>
-                        <button class="close-chat"><i class="fas fa-times"></i></button>
-                    </div>
-                    <div class="chat-history"></div>
-                    <div class="chat-input-admin">
-                        <input type="text" placeholder="Type your reply...">
-                        <button class="send-admin"><i class="fas fa-paper-plane"></i></button>
-                    </div>
-                `;
-                
-                // Add close button handler
-                chatItem.querySelector('.close-chat').addEventListener('click', () => {
-                    chatItem.remove();
-                    activeChats.delete(clientId);
-                    updateActiveChatsCount();
-                    
-                    // Add waiting message if no more chats
-                    if (activeChats.size === 0) {
-                        const chatList = document.getElementById('adminChatMessages');
-                        const messageElement = document.createElement('div');
-                        messageElement.classList.add('message', 'system');
-                        messageElement.innerHTML = `
-                            <div class="message-content">Waiting for incoming customer chats...</div>
-                        `;
-                        chatList.appendChild(messageElement);
-                    }
-                });
-                
-                // Add send button handler
-                chatItem.querySelector('.send-admin').addEventListener('click', () => {
-                    sendAdminMessage(clientId, chatItem.querySelector('input').value);
-                });
-                
-                // Add enter key handler
-                chatItem.querySelector('input').addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        sendAdminMessage(clientId, e.target.value);
-                    }
-                });
-                
-                chatList.appendChild(chatItem);
-                updateActiveChatsCount();
+                requestConversationHistory(clientId);
             }
             
-            // Add message to chat history
-            const chatItem = document.querySelector(`.chat-item[data-client-id="${clientId}"]`);
-            if (!chatItem) return;
+            // Add message to conversation
+            const messages = activeChats.get(clientId);
+            messages.push({
+                from: data.from === 'admin' ? 'admin' : 'client',
+                message: data.message,
+                timestamp: data.timestamp || new Date().toISOString()
+            });
             
-            const chatHistory = chatItem.querySelector('.chat-history');
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message');
-            messageElement.classList.add(data.from === 'admin' ? 'admin' : 'customer');
+            // Update UI
+            updateConversationList();
+            updateActiveChatsCount();
             
-            // Use server timestamp if available
-            const timestamp = data.timestamp ? new Date(data.timestamp) : new Date();
-            
-            messageElement.innerHTML = `
-                <div class="message-sender">${data.from === 'admin' ? 'You' : 'Client'}</div>
-                <div class="message-content">${data.message}</div>
-                <div class="message-time">${timestamp.toLocaleTimeString()}</div>
-            `;
-            
-            chatHistory.appendChild(messageElement);
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-            
-            // Add to active chats storage
-            activeChats.get(clientId).push(data);
+            // If this conversation is currently open, update the view
+            if (currentClientId === clientId) {
+                showConversation(clientId);
+            }
         }
         
-        function sendAdminMessage(clientId, message) {
-            if (message.trim() === '') return;
-            
-            if (adminSocket && adminSocket.readyState === WebSocket.OPEN) {
-                // Send message to server
-                adminSocket.send(JSON.stringify({
-                    type: 'chat',
-                    role: 'admin',
-                    to: clientId,
-                    message: message
-                }));
-                
-                // Add to chat UI
-                const chatItem = document.querySelector(`.chat-item[data-client-id="${clientId}"]`);
-                if (!chatItem) return;
-                
-                const input = chatItem.querySelector('input');
-                input.value = '';
-                
-                const chatHistory = chatItem.querySelector('.chat-history');
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message', 'admin');
-                messageElement.innerHTML = `
-                    <div class="message-sender">You</div>
-                    <div class="message-content">${message}</div>
-                    <div class="message-time">${new Date().toLocaleTimeString()}</div>
-                `;
-                chatHistory.appendChild(messageElement);
-                chatHistory.scrollTop = chatHistory.scrollHeight;
-                
-                // Add to active chats storage
-                activeChats.get(clientId).push({
-                    from: 'admin',
-                    message: message,
-                    timestamp: new Date().toISOString()
-                });
+        function handleConversationHistory(clientId, history) {
+            if (!activeChats.has(clientId)) {
+                activeChats.set(clientId, []);
             }
+            
+            // Add history to conversation
+            const messages = activeChats.get(clientId);
+            history.forEach(msg => {
+                messages.push({
+                    from: msg.from,
+                    message: msg.message,
+                    timestamp: msg.timestamp
+                });
+            });
+            
+            // Update UI
+            updateConversationList();
+            updateActiveChatsCount();
+            
+            // If this conversation is currently open, update the view
+            if (currentClientId === clientId) {
+                showConversation(clientId);
+            }
+        }
+        
+        function requestConversationHistory(clientId) {
+            if (adminSocket && adminSocket.readyState === WebSocket.OPEN) {
+                adminSocket.send(JSON.stringify({
+                    type: 'requestHistory',
+                    clientId: clientId
+                }));
+            }
+        }
+        
+        function updateConversationList() {
+            const container = document.getElementById('conversations');
+            
+            if (activeChats.size === 0) {
+                container.innerHTML = '<div class="no-conversation">No active conversations</div>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            activeChats.forEach((messages, clientId) => {
+                const lastMessage = messages.length > 0 ? messages[messages.length - 1] : null;
+                const el = document.createElement('div');
+                el.className = `conversation-item ${currentClientId === clientId ? 'active' : ''}`;
+                el.innerHTML = `
+                    <div style="display: flex; justify-content: space-between;">
+                        <strong>${clientId}</strong>
+                        <small>${lastMessage ? new Date(lastMessage.timestamp).toLocaleTimeString() : ''}</small>
+                    </div>
+                    <p style="margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        ${lastMessage ? lastMessage.message.substring(0, 50) + (lastMessage.message.length > 50 ? '...' : '') : 'No messages'}
+                    </p>
+                `;
+                el.addEventListener('click', () => showConversation(clientId));
+                container.appendChild(el);
+            });
+        }
+        
+        function showConversation(clientId) {
+            currentClientId = clientId;
+            document.getElementById('client-id').textContent = clientId;
+            
+            const chatContainer = document.getElementById('chatMessages');
+            
+            if (!activeChats.has(clientId) || activeChats.get(clientId).length === 0) {
+                chatContainer.innerHTML = '<div class="no-conversation">No messages in this conversation yet</div>';
+                return;
+            }
+            
+            chatContainer.innerHTML = '';
+            
+            const messages = activeChats.get(clientId);
+            messages.forEach(msg => {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                messageElement.classList.add(msg.from === 'admin' ? 'admin' : 'customer');
+                messageElement.innerHTML = `
+                    <div class="message-sender">${msg.from === 'admin' ? 'You' : 'Customer'}</div>
+                    <div class="message-content">${msg.message}</div>
+                    <div class="message-time">${new Date(msg.timestamp).toLocaleTimeString()}</div>
+                `;
+                chatContainer.appendChild(messageElement);
+            });
+            
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            updateConversationList();
         }
         
         function updateActiveChatsCount() {
-            document.getElementById('activeChatsCount').textContent = activeChats.size;
+            const count = activeChats.size;
+            document.getElementById('activeChatsCount').textContent = count;
+            document.getElementById('activeChatsBadge').textContent = count;
         }
         
         function initAdminChat() {
-            // Initialize with any existing active chats
             updateActiveChatsCount();
+            updateConversationList();
+            
+            // Send button event
+            document.getElementById('adminReplyBtn').addEventListener('click', sendReply);
+            
+            // Enter key event
+            document.getElementById('adminReplyInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendReply();
+            });
         }
         
+        function sendReply() {
+            if (!currentClientId) {
+                showNotification('No Conversation', 'Please select a conversation first');
+                return;
+            }
+            
+            const message = document.getElementById('adminReplyInput').value.trim();
+            if (!message) return;
+            
+            if (adminSocket && adminSocket.readyState === WebSocket.OPEN) {
+                // Send message to server
+                const timestamp = new Date().toISOString();
+                adminSocket.send(JSON.stringify({
+                    type: 'chat',
+                    to: currentClientId,
+                    message: message,
+                    timestamp: timestamp
+                }));
+                
+                // Add to local chat history
+                activeChats.get(currentClientId).push({
+                    from: 'admin',
+                    message: message,
+                    timestamp: timestamp
+                });
+                
+                // Update UI
+                showConversation(currentClientId);
+                document.getElementById('adminReplyInput').value = '';
+            }
+        }
+        
+        // New function to load contact forms
+        function loadContactForms() {
+            // In a real app, this would fetch from your API
+            // For demo, we'll create mock data
+            const demoForms = [
+                {
+                    name: "John Doe",
+                    email: "john@example.com",
+                    phone: "555-1234",
+                    message: "Interested in weekly cleaning service",
+                    timestamp: new Date(Date.now() - 86400000).toISOString()
+                },
+                {
+                    name: "Jane Smith",
+                    email: "jane@example.com",
+                    phone: "",
+                    message: "Need deep cleaning for new apartment",
+                    timestamp: new Date(Date.now() - 172800000).toISOString()
+                },
+                {
+                    name: "Robert Johnson",
+                    email: "robert@example.com",
+                    phone: "555-5678",
+                    message: "Requesting quote for office cleaning",
+                    timestamp: new Date(Date.now() - 259200000).toISOString()
+                }
+            ];
+            
+            const tableBody = document.getElementById('contact-forms-body');
+            tableBody.innerHTML = '';
+            
+            demoForms.forEach(form => {
+                const row = document.createElement('tr');
+                row.style.borderBottom = '1px solid #e0e0e0';
+                row.innerHTML = `
+                    <td style="padding: 12px 15px;">${form.name}</td>
+                    <td style="padding: 12px 15px;">${form.email}</td>
+                    <td style="padding: 12px 15px;">${form.phone || 'N/A'}</td>
+                    <td style="padding: 12px 15px;">${form.message}</td>
+                    <td style="padding: 12px 15px;">${new Date(form.timestamp).toLocaleString()}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // Initialize admin functionality after login
+        function initAdminFunctionality() {
+            // Initialize gallery functionality
+            initGallery();
+            
+            // Initialize chat functionality
+            initAdminChat();
+            
+            // Set up section navigation
+            setupSectionNavigation();
+            
+            // Load contact forms if needed
+            if (window.location.hash === '#contact-forms') {
+                showSection('contact-forms-section');
+            }
+        }
+        
+        // Section navigation system
+        function setupSectionNavigation() {
+            // Back to dashboard button
+            document.querySelector('.back-to-dashboard').addEventListener('click', () => {
+                showSection('dashboard-section');
+            });
+            
+            // Navigation links
+            document.querySelectorAll('.admin-nav a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const section = link.getAttribute('data-section');
+                    
+                    if (section === 'dashboard') {
+                        showSection('dashboard-section');
+                    } 
+                    else if (section === 'contact-forms') {
+                        showSection('contact-forms-section');
+                        loadContactForms();
+                    }
+                    else {
+                        // For other sections, just show dashboard for now
+                        showSection('dashboard-section');
+                    }
+                    
+                    // Update active nav item
+                    document.querySelectorAll('.admin-nav a').forEach(a => {
+                        a.classList.remove('active');
+                    });
+                    link.classList.add('active');
+                });
+            });
+        }
+        
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show requested section
+            document.getElementById(sectionId).style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
         // Gallery functionality
         function initGallery() {
             // Admin navigation
@@ -1288,9 +1532,11 @@
             
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
+                    if (!link.dataset.section) {
+                        e.preventDefault();
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                    }
                 });
             });
             

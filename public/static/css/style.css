@@ -1186,7 +1186,7 @@ footer {
     font-size: 1rem;
 }
 
-/* Floating Buttons */
+/* Floating Buttons - UPDATED WITH CURSOR POINTER */
 .floating-buttons {
     position: fixed;
     bottom: 30px;
@@ -1211,6 +1211,8 @@ footer {
     animation: float 4s ease-in-out infinite;
     position: relative;
     overflow: hidden;
+    /* Added cursor pointer */
+    cursor: pointer;
 }
 
 .whatsapp-btn {
@@ -1394,7 +1396,7 @@ footer {
     0% {
         transform: rotate(0deg);
     }
-    100% {
+   100% {
         transform: rotate(360deg);
     }
 }
@@ -1421,9 +1423,8 @@ footer {
     100% { transform: translateY(0); opacity: 1; }
 }
 
-/* Modern Chat Modal Styles */
+/* Modern Chat Modal */
 .chat-modal {
-    display: none;
     position: fixed;
     bottom: 100px;
     right: 30px;
@@ -1436,15 +1437,17 @@ footer {
     z-index: 10000;
     overflow: hidden;
     flex-direction: column;
-    transform: scale(0.95);
+    display: flex;
+    visibility: hidden;
     opacity: 0;
+    transform: scale(0.95);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .chat-modal.active {
-    display: flex;
-    transform: scale(1);
+    visibility: visible;
     opacity: 1;
+    transform: scale(1);
 }
 
 .chat-modal-header {
@@ -1545,6 +1548,17 @@ footer {
     font-size: 0.85rem;
     margin: 5px auto;
     max-width: 90%;
+}
+
+/* AI Message Styling */
+.message.ai {
+    background-color: #e1f7e3;
+    border-left: 4px solid #1dd1a1;
+}
+
+.message.ai .message-sender {
+    color: #10ac84;
+    font-weight: bold;
 }
 
 .message-sender {

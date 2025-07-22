@@ -452,17 +452,20 @@
         </div>
     </footer>
 
-    <!-- Floating Buttons -->
+    <!-- Floating Buttons - UPDATED WITH FIXES -->
     <div class="floating-buttons">
+        <!-- WhatsApp Button - Fixed link with country code -->
         <a href="https://wa.me/254794785228" class="float-btn whatsapp-btn" target="_blank">
             <i class="fab fa-whatsapp"></i>
         </a>
-        <a href="#" class="float-btn chat-btn" id="openChat">
+        
+        <!-- Chat Button - Fixed id -->
+        <a href="#" class="float-btn chat-btn" id="openChatBtn">
             <i class="fas fa-comments"></i>
         </a>
     </div>
 
-    <!-- Modern Chat Modal -->
+    <!-- Modern Chat Modal - UPDATED WITH INITIAL HIDDEN STATE -->
     <div class="chat-modal" id="chatModal">
         <div class="chat-modal-header">
             <h3><i class="fas fa-headset"></i> Live Chat Support</h3>
@@ -473,12 +476,7 @@
             </div>
         </div>
         <div class="chat-modal-body" id="chatMessages">
-            <div class="message system">
-                <div class="message-content">Welcome to Shiny Space Cleaners! How can we assist you today?</div>
-            </div>
-            <div class="message system">
-                <div class="message-content">Our team is online and ready to help with any cleaning inquiries.</div>
-            </div>
+            <!-- Chat messages will be populated by chat.js -->
         </div>
         <div class="chat-modal-footer">
             <input type="text" id="messageInput" placeholder="Type your message...">
@@ -554,74 +552,6 @@
                 el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(el);
             });
-        });
-        
-        // Chat functionality
-        const sendMessageBtn = document.getElementById('sendMessage');
-        const messageInput = document.getElementById('messageInput');
-        const chatMessages = document.getElementById('chatMessages');
-        
-        function formatTime(date) {
-            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        }
-        
-        sendMessageBtn.addEventListener('click', () => {
-            if(messageInput.value.trim() !== '') {
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message', 'customer');
-                
-                const time = new Date();
-                messageElement.innerHTML = `
-                    <div class="message-content">${messageInput.value}</div>
-                    <div class="message-time">${formatTime(time)}</div>
-                `;
-                chatMessages.appendChild(messageElement);
-                messageInput.value = '';
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                
-                // Simulate admin response
-                setTimeout(() => {
-                    const adminMessage = document.createElement('div');
-                    adminMessage.classList.add('message', 'admin');
-                    
-                    const adminTime = new Date();
-                    adminMessage.innerHTML = `
-                        <div class="message-sender">Shiny Support</div>
-                        <div class="message-content">Thank you for your message! We'll get back to you shortly with assistance.</div>
-                        <div class="message-time">${formatTime(adminTime)}</div>
-                    `;
-                    chatMessages.appendChild(adminMessage);
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                }, 2000);
-            }
-        });
-        
-        // Press Enter to send message
-        messageInput.addEventListener('keypress', (e) => {
-            if(e.key === 'Enter') {
-                sendMessageBtn.click();
-            }
-        });
-
-        // Chat Modal Toggle
-        const chatModal = document.getElementById('chatModal');
-        const openChatBtn = document.getElementById('openChat');
-        const closeChatBtn = document.getElementById('closeChat');
-        
-        openChatBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            chatModal.classList.add('active');
-        });
-        
-        closeChatBtn.addEventListener('click', () => {
-            chatModal.classList.remove('active');
-        });
-        
-        // Close chat modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === chatModal) {
-                chatModal.classList.remove('active');
-            }
         });
         
         // Form submission with FormSubmit
