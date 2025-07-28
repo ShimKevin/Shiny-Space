@@ -165,6 +165,11 @@ app.get('/google26c380d9c2888df1.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'google26c380d9c2888df1.html'));
 });
 
+// Sitemap route
+app.get('/sitemap.xml', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'));
+});
+
 // Admin route
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
@@ -286,7 +291,7 @@ async function getAIResponse(message) {
   else if (userMessage.includes('thanks') || userMessage.includes('thank you')) {
     return "You're welcome! If you have any more questions or need assistance, feel free to ask.";
   }
-  else if (/(\+2547\d{8}|2547\d{8}|07\d{8})/.test(userMessage) && /(\d{1,2}\/\d{1,2}\/\d{4})|(\d{1,2}(st|nd|rd|th)?\s+[A-Za-z]+\s+\d{4})/i.test(userMessage)) {
+    else if (/(\+2547\d{8}|2547\d{8}|07\d{8})/.test(userMessage) && /(\d{1,2}\/\d{1,2}\/\d{4})|(\d{1,2}(st|nd|rd|th)?\s+[A-Za-z]+\s+\d{4})/i.test(userMessage)) {
     return "Thank you for providing your contact details and preferred date. We will reach out to you shortly to confirm your booking.";
   }
   else {
@@ -692,6 +697,7 @@ function startServer() {
     console.log(`  - Contact: http://localhost:${PORT}/images/contact`);
     console.log(`  - Contact Forms: http://localhost:${PORT}/api/contact-forms`);
     console.log(`  - Google Verification: http://localhost:${PORT}/google26c380d9c2888df1.html`);
+    console.log(`  - Sitemap: http://localhost:${PORT}/sitemap.xml`);
   });
 }
 
