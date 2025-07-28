@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shiny-space.onrender.com/sitemap.xml
