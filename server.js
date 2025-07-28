@@ -157,16 +157,19 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Routes
+// Serve static files from public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Google verification route
+app.get('/google26c380d9c2888df1.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'google26c380d9c2888df1.html'));
+});
+
+// Admin route
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -282,7 +285,10 @@ async function getAIResponse(message) {
   }
   else if (userMessage.includes('thanks') || userMessage.includes('thank you')) {
     return "You're welcome! If you have any more questions or need assistance, feel free to ask.";
-  } 
+  }
+  else if (/(\+2547\d{8}|2547\d{8}|07\d{8})/.test(userMessage) && /(\d{1,2}\/\d{1,2}\/\d{4})|(\d{1,2}(st|nd|rd|th)?\s+[A-Za-z]+\s+\d{4})/i.test(userMessage)) {
+    return "Thank you for providing your contact details and preferred date. We will reach out to you shortly to confirm your booking.";
+  }
   else {
     return "I'm sorry, I didn't understand that. Could you please rephrase your question?";
   }
@@ -685,6 +691,7 @@ function startServer() {
     console.log(`  - Services: http://localhost:${PORT}/images/services`);
     console.log(`  - Contact: http://localhost:${PORT}/images/contact`);
     console.log(`  - Contact Forms: http://localhost:${PORT}/api/contact-forms`);
+    console.log(`  - Google Verification: http://localhost:${PORT}/google26c380d9c2888df1.html`);
   });
 }
 
