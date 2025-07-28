@@ -270,6 +270,10 @@ async function getAIResponse(message) {
   else if (userMessage.includes('hours') || userMessage.includes('open') || userMessage.includes('working hours')) {
     return "We are open Monday to Saturday from 8 AM to 6 PM. How can I assist you today?";
   }
+  else if (/(\+2547\d{8}|2547\d{8}|07\d{8})/.test(userMessage) &&  
+           /(\d{1,2}\/\d{1,2}\/\d{4})|(\d{1,2}(st|nd|rd|th)?\s+[A-Za-z]+\s+\d{4})/i.test(userMessage)) {
+    return "Thank you for providing your contact details and preferred date. We will reach out to you shortly to confirm your booking.";
+  } 
   else if (userMessage.includes('cleaning') || userMessage.includes('clean')) {
     return "We specialize in residential, commercial, and post-construction cleaning. What type of cleaning service are you interested in?";
   }
@@ -290,9 +294,6 @@ async function getAIResponse(message) {
   }
   else if (userMessage.includes('thanks') || userMessage.includes('thank you')) {
     return "You're welcome! If you have any more questions or need assistance, feel free to ask.";
-  }
-    else if (/(\+2547\d{8}|2547\d{8}|07\d{8})/.test(userMessage) && /(\d{1,2}\/\d{1,2}\/\d{4})|(\d{1,2}(st|nd|rd|th)?\s+[A-Za-z]+\s+\d{4})/i.test(userMessage)) {
-    return "Thank you for providing your contact details and preferred date. We will reach out to you shortly to confirm your booking.";
   }
   else {
     return "I'm sorry, I didn't understand that. Could you please rephrase your question?";
